@@ -13,8 +13,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-  <%-- <meta name="_csrf" content="${_csrf.token}"/>
-	<meta name="_csrf_header" content="${_csrf.headerName}"/> --%>
+   <meta name="_csrf" content="${_csrf.token}"/>
+   <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
    <title>${title}</title>
   
@@ -122,30 +122,22 @@
    </style>
 </head>
 
-<body data-ng-app = "myApp">
+<body data-ng-app = "contiApp">
 
 
 
-	<div class="login-page"  data-ng-controller = "UserController">
+	<div class="login-page"  data-ng-controller = "UserController as ctrl">
 	  <div class="form">
-	  
-	  	<c:if test="${not empty error}">
-			<div class="error" style="color: red;" align="center">${error}</div>
-		</c:if>
-		
-		<c:if test="${not empty msg}">
-			<div class="msg" style="color: green;" align="center">${msg}</div>
-		</c:if>
 	    
-	    <form class="login-form" role="form" >
+	    <form class="login-form" role="form" data-ng-submit = "ctrl.findUsername()" >
 	    
-	      	      <input class="form-control" placeholder="Username" id="username" name="username" type="text" autofocus />
+	      	      <input class="form-control" data-ng-model = "ctrl.user.username" placeholder="Username" id="username" name="username" type="text" autofocus required />
 	      		  
-	     	      <button>Get password</button>
+	     	      <button type="submit">Get password</button>
 	     		  <p class="message"> << <a href="login">Go back</a></p>
-	     		  
+	     		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	    </form>
-	    
+	    {{ctrl.message}}
 	  </div>
 	</div>
 
