@@ -14,23 +14,7 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
  
     return factory;
     
-    
-	//------------------------- CSRF begin ---------------------------------- //	
-	 function getCsrfHeader() {
-		 
-		 var csrfToken = $("input[name='_csrf']").val();
-	
-		 var headers = {}; 
-		 headers["X-CSRF-TOKEN"] = csrfToken;
-		 headers["_csrf"] = csrfToken;
-		 
-		 return headers;
-	 };
-	 
-	 //------------------------- CSRF end ---------------------------------- //
 
-	 
-	 
     //----------------------  Fetch All users begin ----------------------------- //
     function fetchAllUser() {
         var deferred = $q.defer();
