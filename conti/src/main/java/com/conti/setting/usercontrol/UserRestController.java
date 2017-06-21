@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.conti.config.SessionListener;
+import com.conti.others.ConstantValues;
+import com.conti.others.Loggerconf;
+
 /**
  * @Project_Name conti
  * @Package_Name com.conti.setting.usercontrol
@@ -31,11 +35,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UserRestController {
 	
 	@Autowired
-	private UsersDao usersDao;	
+	private UsersDao usersDao;
+	@Autowired
+	private RoleDao roleDao;
+	
+	Loggerconf loggerconf = new Loggerconf();
+	SessionListener sessionListener = new SessionListener();
 	
 	/* ------------------------- Retrieve all Users begin-------------------------------- */
 	@RequestMapping( value = "/users/", method = RequestMethod.GET	)
 	public ResponseEntity<List<User>> fetchAllUsers() {
+		
 		List<User> users = usersDao.list();
 		if(users.isEmpty()) {
 			return new ResponseEntity<List<User>> (HttpStatus.NO_CONTENT);
@@ -94,5 +104,27 @@ public class UserRestController {
 		}
 	}	
 	/* ------------------------- Delete a User end ----------------------------------- */
+	
+	/* --------------------------- Retrieve a User by username begin ------------------------ */
+	@RequestMapping(value = "forgotPassword", method = RequestMethod.POST)
+	public ResponseEntity<User> getUserbyusername(@RequestBody String username) {
+		User currentUser = usersDao.findByUserName(username);
+		
+		if(currentUser == null) {
+			return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+		} else {
+			Role userRole = roleDao.get(currentUser.getUser_id());
+			if( userRole == null ) {
+				return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			} else {
+				currentUser.setObsolete(userRole.getRole_Name());
+				return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+			}			
+		}		
+	}
+	
+	/* --------------------------- Retrieve a User by username end ------------------------ */
+	
+	
 }
 

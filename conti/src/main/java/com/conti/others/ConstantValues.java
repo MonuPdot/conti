@@ -31,7 +31,9 @@ public final class ConstantValues {
 	public static final String MAIL_ID = "pointdot2016@gmail.com";
 	public static final String MAIL_PASSWORD = "pointdot@123";
 	
-
-	
+	// USER ROLE
+	public static final String ROLE_SADMIN = "SUPER_ADMIN";
+	public static final String ROLE_ADMIN = "ADMIN";
+	public static final String ROLE_CUSER = "CONTI_USER";
 	
 }

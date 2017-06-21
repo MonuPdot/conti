@@ -27,7 +27,7 @@ public class User {
 	
 	private int company_id, user_id, branch_id, role_id;
 	private String username, userpassword, user_empcode, user_phoneno, user_emailid; 
-	private String created_datetime, updated_datetime;
+	private String obsolete, active, created_datetime, updated_datetime;
 	
 	@Column(name = "company_id")
 	public int getCompany_id() {
@@ -106,6 +106,21 @@ public class User {
 	}
 	public void setUpdated_datetime(String updated_datetime) {
 		this.updated_datetime = updated_datetime;
+	}
+	
+	@Column(name = "obsolete")
+	public String getObsolete() {
+		return obsolete;
+	}
+	public void setObsolete(String obsolete) {
+		this.obsolete = obsolete;
+	}
+	@Column(name = "active")
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
 	}
 	
 	
