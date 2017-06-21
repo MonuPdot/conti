@@ -1,16 +1,18 @@
 package com.conti.setting.usercontrol;
-
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.Id;
-
 import javax.persistence.Table;
 
 
-
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.setting.usercontrol
+ * @File_name UserPrivilege.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
 
 
 @Entity

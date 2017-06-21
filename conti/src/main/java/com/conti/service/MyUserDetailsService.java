@@ -1,10 +1,3 @@
-/*
-   Suresh
-   29.11.2016
- */
-
-
-
 package com.conti.service;
 
 import java.util.ArrayList;
@@ -26,6 +19,14 @@ import com.conti.setting.usercontrol.UserPrivilege;
 import com.conti.setting.usercontrol.UserPrivilegeDao;
 import com.conti.setting.usercontrol.UsersDao;
 
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.service
+ * @File_name MyUserDetailsService.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService

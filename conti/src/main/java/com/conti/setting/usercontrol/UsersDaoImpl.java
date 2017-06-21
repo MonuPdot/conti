@@ -9,7 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.setting.usercontrol
+ * @File_name UsersDaoImpl.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
 
 @Repository
 class UsersDaoImpl implements UsersDao {

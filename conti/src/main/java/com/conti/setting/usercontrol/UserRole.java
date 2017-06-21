@@ -11,7 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.setting.usercontrol
+ * @File_name UserRole.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
 @Entity
 @Table(name = "user_roles", catalog = "test", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "username" }))
 public class UserRole{
