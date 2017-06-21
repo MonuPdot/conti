@@ -45,7 +45,7 @@
 		 		});
 	 	
 	 	  $("a").bind("click", function() {
-	 		  valid = false;			
+	 		  valid = true;			
 	 		}); 
 	 	  
 	 		  $(document.body).on("keydown", this,
