@@ -4,6 +4,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.config
+ * @File_name SpringMvcInitializer.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ *
+ */
 
 public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer  {
 

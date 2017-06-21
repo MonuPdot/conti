@@ -21,9 +21,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.conti.setting.usercontrol.UsersDao;
 
-
-
-
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.config
+ * @File_name SessionListener.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ *
+ */
 
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)

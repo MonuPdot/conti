@@ -24,6 +24,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.config
+ * @File_name AppConfig.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "com.conti.*" })
