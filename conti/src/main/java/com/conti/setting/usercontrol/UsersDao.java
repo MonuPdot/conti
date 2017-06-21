@@ -2,10 +2,6 @@ package com.conti.setting.usercontrol;
 
 import java.util.List;
 
-
-
-
-
 public interface UsersDao {
 	public void saveOrUpdate(User u);
 	public List<User> list();
@@ -19,7 +15,7 @@ public interface UsersDao {
 	public void resetPassword(String username, String password);
 	
 	public User findByUserName(String username);
-	public List<User> listbyclientid(int clientid);
+	public List<User> listbyclientid(int compay_id);
 	
 	public List<User> getlistOrderbydatedesc(int clientid);
 	

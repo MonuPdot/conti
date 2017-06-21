@@ -85,6 +85,20 @@ public class DashboardController {
 		return model;
 
 	}
+	
+	@RequestMapping(value = {"forgot_password"}, method = RequestMethod.GET)
+	public ModelAndView forgotPassword() throws Exception {
+		
+		ModelAndView model = new ModelAndView();
+			
+			model.addObject("title", "Conti - Forgot Password");
+			model.addObject("message", "Forgot password in Conti");
+			model.setViewName("forgot_password");
+			
+		
+		return model;
+
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,

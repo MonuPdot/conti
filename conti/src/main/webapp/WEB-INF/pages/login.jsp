@@ -143,7 +143,7 @@
 	      		  <input class="form-control" placeholder="Password" id="password" name="password" type="password" value="">
 	     	      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	     	      <button>Login</button>
-	     		  <p class="message">Already registered? <a href="#">Sign In</a></p>
+	     		  <p class="message">Forgot <a href="forgot_password">Password</a> / <a href="forgot_username">User name</a></p>
 	     		  
 	    </form>
 	    

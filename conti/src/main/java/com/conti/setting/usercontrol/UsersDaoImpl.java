@@ -112,8 +112,8 @@ class UsersDaoImpl implements UsersDao {
 		}
 		@Override
 		@Transactional
-		public List<User> listbyclientid(int clientid){
-			String hql = "from User where client_id="+ clientid +"AND obsolete ='N' and active ='Y'";
+		public List<User> listbyclientid(int company_id){
+			String hql = "from User where company_id="+ company_id +"AND obsolete ='N' and active ='Y'";
 			@SuppressWarnings("unchecked")
 			List<User> listuser = (List<User>) sessionFactory.getCurrentSession()
 					.createQuery(hql).list();

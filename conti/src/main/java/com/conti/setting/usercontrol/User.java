@@ -11,7 +11,14 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.settings.user
+ * @File_name UserModel.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
 
 @Entity
 @Table(name="a_user")
