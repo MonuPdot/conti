@@ -1,7 +1,12 @@
 /**
- * sankarPdot
+ * @Project_Name conti
+ * @Package_Name custom js user_control.js
+ * @File_name user_control.js
+ * @author Sankar
+ * @Updated_user Sankar
+ * @Created_date_time Jun 21, 2017 8:24:17 PM
+ * @Updated_date_time Jun 20, 2017 3:24:17 PM
  */
-
 contiApp.controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
     var self = this;
     self.user={id:null,username:''};
@@ -18,7 +23,8 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
 	
 	 
     fetchAllUsers();
-    
+
+    //----------------------  Fetch All users begin ----------------------------- //    
     function fetchAllUsers(){
         UserService.fetchAllUsers()
             .then(
@@ -32,8 +38,9 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
             }
         );
     }
-    
-    
+    //----------------------  Fetch All users end ----------------------------- //    
+
+    //----------------------  Find user by user id begin ----------------------------- //    
     function findUser(user, id){
         UserService.findUser(user, id)
             .then(
@@ -43,7 +50,9 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
             }
         );
     }
- 
+    //----------------------  Find user by user end ----------------------------- //
+    
+    //----------------------  Find user by user name begin ----------------------------- //    
     function findUsername() {
     	UserService.findusername(self.user.username)
     		.then(
@@ -67,5 +76,19 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
     			);
     }
 
- 
+    //----------------------  Find user by user name begin ----------------------------- //
+    
+    //----------------------  Delete user by user id begin ----------------------------- //
+    
+    function deleteUser(id) {
+    	 UserService.deleteUser(id)
+         .then(
+         fetchAllUsers,
+         function(errResponse){
+             console.error('Error while deleting User');
+         }
+     );
+    }
+    
+    //----------------------  Delete user by user id end ----------------------------- //    
 }]);

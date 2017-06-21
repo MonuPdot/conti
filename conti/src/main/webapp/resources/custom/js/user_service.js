@@ -1,7 +1,12 @@
 /**
- * sankarPdot
+ * @Project_Name conti
+ * @Package_Name custom js user_service.js
+ * @File_name user_service.js
+ * @author Sankar
+ * @Updated_user Sankar
+ * @Created_date_time Jun 21, 2017 8:24:17 PM
+ * @Updated_date_time Jun 20, 2017 3:24:17 PM
  */
-
 contiApp.factory('UserService', ['$http', '$q', function($http, $q){
  
     var REST_SERVICE_URI = 'http://localhost:8080/Conti/users/';
@@ -86,6 +91,23 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     		);
     		return deferred.promise;
     }
+    
+
   //----------------------  Find user by user name begin ----------------------------- //    
  
+  //----------------------  Delete user by user id begin ----------------------------- //  
+    function deleteUser(id) {
+    	var deferred = $q.defer();
+    	$http.delete(REST_SERVICE_URI+id)
+    		.then(
+    				function(response){
+    					deferred.resolve(response.data);
+    				},
+    				function(errResponse) {
+    					deferred.reject(errResponse);
+    				}
+    		);
+    		return deferred.promise;
+    }
+    //----------------------  Delete user by user id end ----------------------------- //    
 }]);
