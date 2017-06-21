@@ -7,7 +7,7 @@
  * @Created_date_time Jun 21, 2017 8:24:17 PM
  * @Updated_date_time Jun 20, 2017 3:24:17 PM
  */
-contiApp.factory('UserService', ['$http', '$q', function($http, $q){
+contiApp.factory('UserService', ['Service','$http', '$q', function($http, $q, Service){
  
     var REST_SERVICE_URI = 'http://localhost:8080/Conti/users/';
  
@@ -22,7 +22,9 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
 
     //----------------------  Fetch All users begin ----------------------------- //
     function fetchAllUser() {
-        var deferred = $q.defer();
+    	
+    	return Service.get(REST_SERVICE_URI,"Fetch all user");
+       /* var deferred = $q.defer();
         $http.get(REST_SERVICE_URI)
             .then(
             function (response) {
@@ -33,7 +35,7 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
                 deferred.reject(errResponse);
             }
         );
-        return deferred.promise;
+        return deferred.promise;*/
     }
     //----------------------  Fetch All users end ----------------------------- //
     
