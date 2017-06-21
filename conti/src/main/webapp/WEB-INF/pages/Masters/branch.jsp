@@ -99,11 +99,10 @@
 			                	<span>Receipt Invoice No Prefix</span>			                	
 			                	<input type="text" class="form-control">
 			                	
-			                </div>	
-			                	                
+			                </div>	                
 		                </div>                
-	                </div>                
-                 </div>
+	                </div>             
+	             </div>
                  
                  <div class="modal-footer footerHeight">
 				 
