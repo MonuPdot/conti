@@ -4,17 +4,19 @@ import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.context.ContextLoaderListener;
-
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -26,10 +28,19 @@ import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 @Configuration
 @ComponentScan({ "com.conti.*" })
 @EnableTransactionManagement
-
+@PropertySource("classpath:config.properties")
 @Import({ SecurityConfig.class })
 public class AppConfig {
 
+	@Value("${mysql.url}")
+	private String mysqlURL;
+	
+	@Value("${mysql.username}")
+	private String mysqlUsername;
+	
+	@Value("${mysql.password}")
+	private String mysqlPassword;
+	
 	@Bean
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
@@ -52,9 +63,9 @@ public class AppConfig {
 	public BasicDataSource dataSource() {		
 		BasicDataSource ds = new BasicDataSource();
 	    ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://192.168.0.3:3306/conti_2017");
-		ds.setUsername("root");
-		ds.setPassword("admin");
+		ds.setUrl(mysqlURL);
+		ds.setUsername(mysqlUsername);
+		ds.setPassword(mysqlPassword);
 		return ds;
 	}
 
@@ -108,4 +119,10 @@ public class AppConfig {
     public HttpSessionEventPublisher httpSessionEventPublisher() {
             return new HttpSessionEventPublisher();
     }
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+
 }
