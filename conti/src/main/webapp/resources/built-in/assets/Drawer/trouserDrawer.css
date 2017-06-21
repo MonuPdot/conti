@@ -132,12 +132,12 @@
 	/* ----------------------- Drawer properties begin ---------------- */	
 		.drawer {
 			background-color: #e8e9e9 !important;
-			width: 30%;
+			width: 40%;
 			height: 100%;
 			border: 50px;
 			position:absolute;			
 			float: right;
-			margin-left: 70%;
+			margin-left: 60%;
  			/*margin-top: -3.3%; */
 			overflow-y:scroll;
 			overflow-x:hidden;
@@ -151,20 +151,64 @@
 
 		}
 		
-		.drawer .modal-footer {
+	/* 	.drawer .modal-footer {
 			background-color: #dedede;
-			
+		
 			position:fixed !important;
 			 width: 29% !important;
 			 
 			 
 		    bottom:0 !important;
 		   z-index: 1;
+		} */
+		
+		.drawer .modal-footer {
+		    background-color: #dedede;
+		    bottom: 0 !important;
+		    position: absolute;
+		    width: 100%;
 		}
-			.masactive {
+		
+	.masactive {
 		text-align: center;
 		padding: 55px;
 	}
+		
+		/* changes For conti */
+		.trowserHeader{
+			height:45px;
+		    background-color: #dedede;
+		}
+		.headerLeft{
+			padding-left: 18px ! important ;
+		}
+		.headerRight{
+			padding-right: 20px ! important ;
+			height: 100%;
+		}
+		.footerHeight{	
+			height:45px;	
+			padding: 7px ! important ;
+		}
+		.footerLeft{		
+			padding-left: 11px ! important ;
+		}
+		.btnPadding{
+			padding-top: 5px ! important ;
+			padding-bottom: 5px ! important ;
+		}
+		.footerRight{
+			padding-right: 13px ! important ;
+		}
+		.contentLeft{		
+			padding-left: 30px ! important ;
+		}
+		.contentRight{
+			padding-right: 45px ! important ;
+		}
+		.iconLeft{
+		    padding: 7px; 
+		}
 		
 		@media (max-width: 768px) {
 			.drawer  ,.drawerShed {
