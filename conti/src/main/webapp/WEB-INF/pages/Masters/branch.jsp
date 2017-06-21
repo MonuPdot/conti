@@ -15,9 +15,6 @@
     <link href="resources/built-in/assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
     <link href="resources/built-in/assets/css/font-awesome.css" rel="stylesheet" />
-	
-	
-	 
     <!-- Morris Chart Styles-->
     <link href="resources/built-in/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
@@ -38,14 +35,14 @@
  		
  		<div class="drawer hideme">
  			<div class="row">
- 			<div class="col-lg-12">
+ 			<div class="col-lg-12 trowserHeader" >
  				 
-                   <div class="col-lg-6">
+                   <div class="col-lg-6 headerLeft">
                    		 <b class="model-title">Branch Master</b>
                    </div>
                    
-                   <div class="col-lg-6">
-                   		<i class="fa fa-times fa-3x drawerClose pull-right"></i>
+                   <div class="col-lg-6 headerRight">
+                   		<i class="fa fa-times fa-2x drawerClose pull-right iconLeft"></i>
                    </div>
             
              </div>
@@ -56,7 +53,7 @@
                  <div class="model-body test-size">
 	                <div class="row">
 		                <div class="col-lg-12">
-			                <div class="col-lg-6">
+			                <div class="col-lg-6 contentLeft">
 			                	<span>Branch Name</span>			                	
 			                	<input type="text" class="form-control">
 			                	
@@ -83,7 +80,7 @@
 			                	<input type="text" class="form-control">
 			                </div>	
 			                
-			                <div class="col-lg-6">
+			                <div class="col-lg-6 contentRight">
 			                	<span>Branch Code</span>			                	
 			                	<input type="text" class="form-control">
 			                	
@@ -108,24 +105,24 @@
 	                </div>                
                  </div>
                  
-                 <div class="modal-footer">
-				
+                 <div class="modal-footer footerHeight">
+				 
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="col-lg-4">
-							<button type="button" class="btn btn-danger drawerClose" style="float:left; margin-right: 25px;">Cancel</button>
+						<div class="col-lg-4 footerLeft">
+							<button type="button" class="btnPadding btn btn-danger drawerClose" style="float:left; margin-right: 25px;">Cancel</button>
 						</div>
 						
 						<div class="col-lg-4" style="text-align:center; !important;">
-							<a id="" class="btn btn-warning"	style="display: none; "><i class="fa fa-trash"  aria-hidden="true"></i> &nbsp;Delete</a> 
+							<a id="" class="btnPadding btn btn-warning"	style="display: none; "><i class="fa fa-trash"  aria-hidden="true"></i> &nbsp;Delete</a> 
 							
-							<a id="" class="btn btn-primary" style="display:none;">Clear</a>							
+							<a id="" class="btnPadding btn btn-primary" style="display:none;">Clear</a>							
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-4 footerRight">
 
 						    <div class="btn-group dropup" id="savebutton">
-								  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">					  
+								  <button type="button" class="btnPadding btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">					  
 								  Save
 								  </button>
 								      
