@@ -10,7 +10,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * @Project_Name conti
+ * @Package_Name com.conti.others
+ * @File_name UserInformation.java
+ * @author Sankar
+ * @Created_date_time Jun 20, 2017 2:21:39 PM
+ * @Updated_date_time Jun 20, 2017 2:21:39 PM
+ */
 public class UserInformation {
 	private  final Logger logger = LoggerFactory.getLogger(UserInformation.class);
 	Loggerconf loggerconf = new Loggerconf();
