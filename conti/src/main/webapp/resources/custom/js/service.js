@@ -9,6 +9,14 @@
 
 contiApp.factory('Service', ['$http', '$q', function($http, $q){
 	
+	
+	var serFactory = {
+			get : get,
+			put : put,
+			post : post,
+			del : del			
+	};
+	return serFactory;
 	//=============================get method====================================
 	function get(URL,msg){
         var deferred = $q.defer();
