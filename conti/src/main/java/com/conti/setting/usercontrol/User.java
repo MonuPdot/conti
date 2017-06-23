@@ -1,15 +1,19 @@
 package com.conti.setting.usercontrol;
 
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.conti.master.employee.EmployeeMaster;
 
 /**
  * @Project_Name conti
@@ -22,12 +26,56 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @Table(name="a_user")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class User {
+//@JsonIgnoreProperties(ignoreUnknown = true)
+
+public class User implements Serializable{
 	
-	private int company_id, user_id, branch_id, role_id;
-	private String username, userpassword, user_empcode, user_phoneno, user_emailid; 
+	private int company_id, user_id, branch_id, role_id, emp_id;
+	private String username, userpassword, user_phoneno, user_emailid; 
 	private String obsolete, active, created_datetime, updated_datetime;
+	
+	private EmployeeMaster employeeMaster;
+	
+	
+	/**
+	 * @param company_id
+	 * @param user_id
+	 * @param branch_id
+	 * @param role_id
+	 * @param emp_id
+	 * @param username
+	 * @param userpassword
+	 * @param user_phoneno
+	 * @param user_emailid
+	 * @param obsolete
+	 * @param active
+	 * @param created_datetime
+	 * @param updated_datetime
+	 * @param employeeMaster
+	 */
+	
+	public User () {}
+	public User(int company_id, int user_id, int branch_id, int role_id, int emp_id, String username,
+			String userpassword, String user_phoneno, String user_emailid, String obsolete, String active,
+			String created_datetime, String updated_datetime, EmployeeMaster employeeMaster) {
+		super();
+		this.company_id = company_id;
+		this.user_id = user_id;
+		this.branch_id = branch_id;
+		this.role_id = role_id;
+		this.emp_id = emp_id;
+		this.username = username;
+		this.userpassword = userpassword;
+		this.user_phoneno = user_phoneno;
+		this.user_emailid = user_emailid;
+		this.obsolete = obsolete;
+		this.active = active;
+		this.created_datetime = created_datetime;
+		this.updated_datetime = updated_datetime;
+		this.employeeMaster = employeeMaster;
+	}
+	
+	
 	
 	@Column(name = "company_id")
 	public int getCompany_id() {
@@ -72,12 +120,12 @@ public class User {
 	public void setUserpassword(String userpassword) {
 		this.userpassword = userpassword;
 	}
-	@Column(name = "user_empcode")
-	public String getUser_empcode() {
-		return user_empcode;
+	@Column(name = "emp_id")
+	public int getEmp_id() {
+		return emp_id;
 	}
-	public void setUser_empcode(String user_empcode) {
-		this.user_empcode = user_empcode;
+	public void setEmp_id(int emp_id) {
+		this.emp_id = emp_id;
 	}
 	@Column(name = "user_phoneno")
 	public String getUser_phoneno() {
@@ -122,7 +170,16 @@ public class User {
 	public void setActive(String active) {
 		this.active = active;
 	}
-	
-	
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	public EmployeeMaster getEmployeeMaster() {
+		return employeeMaster;
+	}
+
+	public void setEmployeeMaster(EmployeeMaster employeeMaster) {
+		this.employeeMaster = employeeMaster;
+	}
+
 	
 }

@@ -22,7 +22,7 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
     self.findUsername = findUsername;
 	
 	 
-    fetchAllUsers();
+    /*fetchAllUsers();*/
 
     //----------------------  Fetch All users begin ----------------------------- //    
     function fetchAllUsers(){
@@ -54,16 +54,16 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
     
     //----------------------  Find user by user name begin ----------------------------- //    
     function findUsername() {
-    	UserService.findusername(self.user.username)
+    	UserService.findUserbyName(self.user.username)
     		.then(
 	    			function (response) {
 	    				if(response != "") {
 	    					if(response.obsolete == "SUPER_ADMIN") {
 	    						self.message = "Kindly contact your technical person..!";
 	    					} else if (response.obsolete == "ADMIN") {
-	    						self.message = "Kindly check your mail..!";
+	    						self.message = "Password reset link sent to your E-mail : " + response.employeeMaster.emp_email;
 	    					} else {
-	    						self.message = "Kindly contact your manager..!";
+	    						self.message = "Kindly contact your manager..! Manager contact no is "+ response.active;	    						
 	    					}
 	    				} else {
 	    					self.message = "User name does not match..!";
