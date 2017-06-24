@@ -24,6 +24,16 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
 	 
     /*fetchAllUsers();*/
 
+    function animationOpenClick(element, animation){
+    	element = $(element);				
+    	element.addClass('animated ' + animation);        
+    	// wait for animation to finish before removing classes
+    	window.setTimeout( function(){
+    		element.removeClass('animated ' + animation);
+    	}, 1000);         
+
+    }
+    
     //----------------------  Fetch All users begin ----------------------------- //    
     function fetchAllUsers(){
         UserService.fetchAllUsers()
@@ -60,10 +70,12 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
 	    				if(response != "") {
 	    					if(response.obsolete == "SUPER_ADMIN") {
 	    						self.message = "Kindly contact your technical person..!";
+	    						animationOpenClick('.success','bounceInDown');
 	    					} else if (response.obsolete == "ADMIN") {
 	    						self.message = "Password reset link sent to your E-mail : " + response.employeeMaster.emp_email;
 	    					} else {
-	    						self.message = "Kindly contact your manager..! Manager contact no is "+ response.active;	    						
+	    						self.message = "Kindly contact your manager..! Manager contact no is "+ response.active;
+	    						
 	    					}
 	    				} else {
 	    					self.message = "User name does not match..!";

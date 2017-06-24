@@ -17,27 +17,37 @@
    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
    <title>${title}</title>
-  
+  <!-- Bootstrap Styles-->
+    <link href="resources/built-in/assets/css/bootstrap.css" rel="stylesheet" />
   	<link rel="stylesheet" href="resources/custom/css/login.css">
+  	<link href="resources/built-in/assets/Drawer/animate.css" rel="stylesheet" />
+  	
+  	<link href="resources/built-in/assets/Drawer/trouserDrawer.css" rel="stylesheet" />
+  	
+  	<style>
+  		.success {
+  			background-color: #85ca2b;
+		    padding: 25px;
+		    color: white;
+		    text-align: center;
+  		}
+  	</style>
 </head>
 
-<body data-ng-app = "contiApp">
+<body data-ng-app = "contiApp" data-ng-controller = "UserController as ctrl">
 
+	<div class="success">{{ctrl.message}}</div>
 
-
-	<div class="login-page"  data-ng-controller = "UserController as ctrl">
+	<div class="login-page"  >
 	  <div class="form">
 	    
 	    <form name="login-form" class="login-form" role="form" data-ng-submit = "ctrl.findUsername()" >
-	    
-	      	      <input class="form-control" data-ng-model = "ctrl.user.username" placeholder="Username" id="username" name="username" type="text" autofocus required />
-	      		  
-	     	      <button type="submit">Get password</button>
-	     		  <p class="message"> << <a href="login">Go back</a></p>
-	     		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	     		
+      	      <input class="form-control" data-ng-model = "ctrl.user.username" placeholder="Username" id="username" name="username" type="text" autofocus required />      		  
+     	      <button type="submit">Get password</button>
+     		  <p class="message"> << <a href="login">Go back</a></p>
+     		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	    </form>
-	    {{ctrl.message}}
+	    
 	  </div>
 	</div>
 
@@ -47,7 +57,6 @@
 	<script type="text/javascript" src="resources/custom/js/session.js"></script>
  	<script type="text/javascript" src="resources/custom/js/app.js"></script>
  	<script type="text/javascript" src="resources/custom/js/user_control.js"></script>
- 	<!-- <script type="text/javascript" src="resources/custom/js/service.js"></script> -->
  	<script type="text/javascript" src="resources/custom/js/user_service.js"></script>
     
 </body>
