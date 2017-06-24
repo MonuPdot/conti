@@ -41,7 +41,6 @@ function animationOpenClick(element, animation){
 
 $('.drawerClose').click(function(){
 	
-		
 	animationOpenClick('.drawer', 'bounceOutRight');
 	//$('.overlay').addClass('hideme');
 
@@ -53,6 +52,7 @@ $('.drawerClose').click(function(){
 	window.setTimeout(function(){	
 		animationOpenClick('.overlay', 'fadeOut');	
 	},1200);
+	
 	window.setTimeout(function(){	
 		$('.overlay').addClass('hideme');
 		$('body').removeClass('scrollHidden');

@@ -62,16 +62,9 @@ public class UserController {
 		HttpSession session = request.getSession();
 		
 		UserInformation userinfo = new UserInformation(request);
-		String username = userinfo.getUserName();
-		
+		String username = userinfo.getUserName();		
 		String userid = userinfo.getUserId();
-		
-		session.setAttribute("username", username);
-		session.setAttribute("userid", userid);
-		
-		
 		ModelAndView model = new ModelAndView();
-		
 		
 		try
 		{
@@ -90,7 +83,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = {"forgot_password"}, method = RequestMethod.GET)
-	public ModelAndView forgotPassword() throws Exception {
+	public ModelAndView forgot_password() throws Exception {
 		
 		ModelAndView model = new ModelAndView();
 			

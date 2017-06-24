@@ -14,7 +14,7 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     var factory = {
         fetchAllUsers: fetchAllUser,
         findUser: findUser,
-        findusername : findUserbyName
+        findUserbyName : findUser
     };
  
     return factory;
@@ -66,7 +66,30 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     //----------------------  Find user by user id with PUT end ----------------------------- // 
     
   //----------------------  Find user by user name begin ----------------------------- //
-    function findUserbyName(username) {
+/*    function findUserbyName(username) {
+    	var deferred = $q.defer();
+    	$http({
+    		method : 'POST',
+    		url : "dd",
+    		data : username,
+    		headers : getCsrfHeader()
+    	})
+    	.then(
+    			function (response) {  
+    				
+    				console.log(response.data);
+    				
+    				deferred.resolve(response.data);
+    			},
+    			function (errResponse) {
+    				deferred.reject(errResponse);
+    			}
+    		);
+    		return deferred.promise;
+    }*/
+    
+   
+    function findUser(username) {
     	var deferred = $q.defer();
     	var headers = getCsrfHeader();
     	
@@ -86,8 +109,6 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     		);
     		return deferred.promise;
     }
-    
-
   //----------------------  Find user by user name begin ----------------------------- //    
  
   //----------------------  Delete user by user id begin ----------------------------- //  

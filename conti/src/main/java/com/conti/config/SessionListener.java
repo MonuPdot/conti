@@ -68,18 +68,4 @@ public class SessionListener extends HttpSessionEventPublisher {
         
     }
     
-//    public void sessionVar(String uname, HttpServletRequest request) {
-//    	
-//    	HttpSession session = request.getSession();
-//    	
-//    	User user = usersDao.findByUserName(uname);
-//    	int userclientid = user.getClient_id();
-//    	int userid = user.getUser_id();
-//    	
-//    	session.setAttribute("bromanuser", uname);
-//    	session.setAttribute("userclientid", userclientid);
-//    	session.setAttribute("userid", userid);
-//    	
-//    }
-
 }

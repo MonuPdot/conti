@@ -10,6 +10,7 @@
 contiApp.factory('Service', ['$http', '$q', function($http, $q){
 	
 	
+	
 	var serFactory = {
 			get : get,
 			put : put,
