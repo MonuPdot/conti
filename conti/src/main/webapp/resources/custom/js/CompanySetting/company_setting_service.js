@@ -15,25 +15,70 @@ angular.module('contiApp').factory('CompanySettingService',['$http','$q',functio
 	
 
 	var factory={
-			fetchCompanySetting:fetchCS,
+			fetchCompanySetting:fetchCompanyWithId,
 			addCompanySetting:addCS,
-			updateCompanySetting:updateCS
+			updateCompanySetting:updateCS,
+			uploadFileToUrl:uploadFileToUrl
 	};
 	
 	return factory;
 	
 	
-	//=============================fetch company settings====================================
-	function fetchCS(){
+	//=============================fileUpload====================================
+	function uploadFileToUrl(file, uploadUrl){
+
+		console.log('uploading');
+		console.log(uploadUrl);
+	  
+		var fd = new FormData();
+        fd.append('file', file);
+     
 		
+		$http({
+			  method: 'POST',
+			  url: uploadUrl,
+			  data:fd,
+			  transformRequest: angular.identity,
+			  headers:getHeaderWithContentType()
+			})
+		.then(
+				function(response){
+					console.log('upload done');
+					console.log(response.data);
+				},
+				function(errResponse){
+					console.log('upload error');
+					console.log(errResponse.data);
+				}
+		);
+                      
+	}
+	
+	
+	
+	//=============================fetch company settings====================================
+	function fetchCompanyWithId(id){
+		var deferred =$q.defer();
+		$http.get("company/"+id)
+		.then(
+				function(response){
+					console.error(" fetched company");
+					deferred.resolve(response);
+				},
+				function(errResponse){
+					console.error("error while fetching company");
+					deferred.reject(errResponse);					
+				}
+				);	
+		return deferred.promise;
 	}
 	
 	//=============================add company settings====================================
-	function addCS(company,header){
+	function addCS(company,file,uploadUrl){
 
 		var deferred=$q.defer();
 		
-		console.log(getHeader());
+		console.log(company);
 		
 		$http({
 			  method: 'POST',
@@ -43,7 +88,15 @@ angular.module('contiApp').factory('CompanySettingService',['$http','$q',functio
 			})
 		.then(
 		function(response){
-			deferred.resolve(response.data);
+			
+			console.log(response.data);
+			 if($("#image").val().length){	
+				 uploadFileToUrl(file, uploadUrl);
+				 console.log("file available");
+			 }else{
+				 console.log("file not available");
+			 }
+			 deferred.resolve(response.data);
 		},
 		function(errResponse){
 			console.error('Error creating company detail');
@@ -68,5 +121,16 @@ angular.module('contiApp').factory('CompanySettingService',['$http','$q',functio
 	}; 
 	
 	
+	function getHeaderWithContentType(){
+		 
+		 var csrfToken = $("input[name='_csrf']").val();
+
+		 var headers = {}; 
+		 headers["X-CSRF-TOKEN"] = csrfToken;
+		 headers["_csrf"] = csrfToken;
+		 headers["Content-Type"] = undefined;
+		 
+		 return headers;
+	}; 
 }]);
 

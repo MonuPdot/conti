@@ -10,7 +10,11 @@
 		font-size:15px;
 		padding-top:5%;
 	}
-
+.disabled { 
+	pointer-events: none;
+	 opacity:0.3; 
+	 tabindex:1000;
+	}
 
 .customer-font
    {

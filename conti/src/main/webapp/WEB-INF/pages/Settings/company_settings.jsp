@@ -41,7 +41,7 @@
 
  	<script type="text/javascript" src="resources/built-in/js/angular.min.js"></script>
 	<script type="text/javascript" src="resources/custom/js/app.js"></script>
-	<script type="text/javascript" src="/resources/custom/js/session.js"></script>
+
 	
 </head>
 
@@ -59,7 +59,7 @@
 			<input type="hidden" data-ng-model="comctrl.company.company_id"/>
 			
 			
-			<div class="panel panel-default panelMarginBottom" data-ng-click="comctrl.submit()">
+			<div class="panel panel-default panelMarginBottom">
 				<div class="panel-heading"></div>
 				<div class="panel-body customer-font">
 					<b>${title}</b>
@@ -74,21 +74,27 @@
 
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="companyName">Company Name</label> 
-							<input type="text" 	class="form-control" 
-							placeholder="Enter Company Name"
-							id="companyName"
-							data-ng-model="comctrl.company.company_name">
-						</div>
+							<label for="companyName">Company Name<span style="color:red">&nbsp;*</span></label> 
+							<input type="text" 
+									data-trigger="focus" data-toggle="popover"
+									data-placement="top" data-content="Please Enter Company Name"
+									class="form-control" placeholder="Enter Company Name"
+									id="companyName" maxlength="30"
+									onKeyPress="return CheckIsCharacterWithspace(event,this.value)"
+									data-ng-model="comctrl.company.company_name">
+							</div>
 						
 						<div class="form-group">
-							<label for="address1">Address Line 1</label>
+							<label for="address1">Address Line 1<span style="color:red">&nbsp;*</span></label>
 							 <input
-							  data-ng-model="company_address1"
+							  data-ng-model="comctrl.company.company_address1"
 							  type="text"
 							  id="address1"
 							  placeholder="Enter Address"
-					          class="form-control" >
+					          class="form-control" 
+					          onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+					          maxlength="100"
+					          >
 						</div>
 						
 					</div>
@@ -101,9 +107,20 @@
 						</div>
 
 						<div class="col-lg-6 noPaddingLeft">
-							<img src="resources/Image/images.png" id="companyImage"
+						<!-- 	<img data-ng-src="resources/Image/images.png" 
+								id="companyImage" 
 								alt="pic_mountain.jpg" id="companyImage" 
+								style="width: 105px; height: 105px;"> -->
+								<img data-ng-src="data:image/JPEG;base64,{{comctrl.company.company_logo}}" 
+								id="companyImage" 
+								onerror="this.src='resources/Image/images.png'"
+								id="companyImage" 
 								style="width: 105px; height: 105px;">
+								
+								<img ng-src="{{image_source}}"
+								id="companyImageHide" 
+								style="width: 105px; height: 105px;">
+							
 						</div>
 
 						<div class="col-lg-6 noPaddingLeft">
@@ -115,29 +132,25 @@
 								<div class="col-lg-12">
 								<button type="button" style="visibility: hidden;"
 									class="btn btn-default">Browse</button>
-									
+							<button type="button" 
+								style="visibility: hidden;"
+								data-ng-click = "comctrl.uploadFile()">upload me</button>	
 							</div>
 
 							<input 
-							 data-ng-model="company_logo"
-							 type="text" 
+							id="image"
+							 type="file"
+							 demo-file-model="myFile" 	
+							 accept="image/*"	
+							 onchange="angular.element(this).scope().setFile(this)"				 
 							 class="btn btn-default" name="Browse">
-							 
 						</div>
 
 					</div>		
 					
 				</div>
 
-				<div class="row">
-					<div class="col-lg-6">
-						
-					</div>
-					<div class="col-lg-6">
-						
-					</div>
-
-				</div>
+		
 
 
 				<div class="row">
@@ -146,20 +159,24 @@
 							<label for="address2">Address Line 2</label> 
 							<input 
 							id="address2"
-							data-ng-model="company_address2"
+							data-ng-model="comctrl.company.company_address2"
 							placeholder="Enter Address"
 							type="text"
-							class="form-control">
+							class="form-control"
+					          onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+					          maxlength="100">
 						</div>
 					</div>
 					<div class="col-lg-6">
 					<div class="form-group">
-							<label for="tinNo">TIN No</label> 
+							<label for="tinNo">TIN No <span style="color:red">&nbsp;*</span></label> 
 							<input
-							 data-ng-model="tin_number"
+							 data-ng-model="comctrl.company.tin_number"
 							 type="text" id="tinNo"
 							 placeholder="Enter Tin Number"
-							 class="form-control">
+							 class="form-control"
+							  onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+							  maxlength="20">
 						</div>
 					</div>
 
@@ -169,23 +186,28 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="location">Location</label> 
+							<label for="location">Location<span style="color:red">&nbsp;*</span></label> 
 							<input 
-							    data-ng-model="company_location"
+							    data-ng-model="comctrl.company.company_location"
 							    placeholder="Enter Location"
 								type="text"
+								onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+								maxlength="50"
 								class="form-control"
 								id="location">
 						</div>
 					</div>
+					
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label for="gstNo">GST No</label>
 							 <input type="text"
 							 id="gstNo"
-							 data-ng-model="gst_number"
+							 data-ng-model="comctrl.company.gst_number"
 							 placeholder="Enter GST Number"
-							 class="form-control">
+							 class="form-control"
+							onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+							maxlength="20">
 						</div>
 					</div>
 
@@ -194,39 +216,59 @@
 				<div class="row">
 					<div class="col-lg-3">
 						<div class="form-group">
-							<label for="city">City</label> 
-							<input type="text"
-								data-ng-model="company_city"
-								placeholder="Enter City"
+							<label for="city">City<span style="color:red">&nbsp;*</span></label> 
+							<select 
+								data-ng-model="comctrl.company.selectedAddress"
 								class="form-control" 
-								id="city">
+								id="city"
+								data-ng-change="updateCountryAndState()"
+								data-ng-options="  x.city for x in comctrl.addresses | orderBy:'city'  track by x.id" 
+								>
+								<option value="">--Select City --</option>
+		 					 	</select>
+		 						<input type="text" 
+		 						data-ng-hide="true"
+								data-ng-model="comctrl.company.company_city"
+								class="form-control" 
+								id="city"
+								onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"/> 
+							
+		 					 	
 						</div>
 					</div>
 					<div class="col-lg-3">	
 						<div class="form-group">
-							<label for="state">State</label>
+							<label for="state">State<span style="color:red">&nbsp;*</span></label>
 							 <input type="text"
-							 data-ng-model="company_state"
+							 data-ng-model="comctrl.company.company_state"
 							 placeholder="Enter State"
-								class="form-control" id="state">
+							 onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+							maxlength="50"
+							class="form-control disabled" id="state">
 						</div>
+						
+						
 					</div>
 						<div class="col-lg-3">
 						<div class="form-group">
-							<label for="landline">Landline</label>
+							<label for="landline">Landline<span style="color:red">&nbsp;*</span></label>
 							 <input type="text"
-							 data-ng-model="company_landlineno"
+							 data-ng-model="comctrl.company.company_landlineno"
 							 placeholder="Enter Landline Number"
+							 maxlength="12"
+							 onKeyPress="return CheckIsNumeric(event)"
 							 class="form-control" id="landline">
 						</div>
 					</div>
 					<div class="col-lg-3">
 						<div class="form-group">
-							<label for="altNo">Alternate Number</label> 
+							<label for="altNo">Alternate Number<span style="color:red">&nbsp;*</span></label> 
 							<input type="text"
-							data-ng-model="company_alternateno"
+							maxlength="12
+							onKeyPress="return CheckIsNumeric(event)"
+							data-ng-model="comctrl.company.company_alternateno"
 							placeholder="Enter Alternate Number"
-								class="form-control" id="altNo">
+							class="form-control" id="altNo">
 						</div>
 					</div>
 
@@ -236,28 +278,33 @@
 				<div class="row">
 					<div class="col-lg-3">
 						<div class="form-group">
-							<label for="country">Country</label> 
+							<label for="country">Country<span style="color:red">&nbsp;*</span></label> 
 							<input type="text"
-							data-ng-model="company_country"
+							data-ng-model="comctrl.company.company_country"
 							placeholder="Enter Country"
-								class="form-control" id="country">
+							class="form-control disabled" id="country"
+							onKeyPress="return CheckIsAlphaNumericWithspace(event,this.value)"
+							maxlength="50">
 						</div>
 					</div>
 					<div class="col-lg-3">
 						<div class="form-group">
-							<label for="pincode">Pincode</label>
+							<label for="pincode">Pincode<span style="color:red">&nbsp;*</span></label>
 							 <input type="text"
-							 	data-ng-model="company_pincode"
+							 	data-ng-model="comctrl.company.company_pincode"
 							 	placeholder="Enter Pincode"
+							 	onKeyPress="return CheckIsNumericAndHyphen(event,this.value)"
+								maxlength="50"
 								class="form-control" id="pincode">
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="email">Email</label> 
+							<label for="email">Email<span style="color:red">&nbsp;*</span></label> 
 							<input type="email"
-							data-ng-model="company_email"
+							data-ng-model="comctrl.company.company_email"
 							placeholder="Enter Email"
+							maxlength="60"
 								class="form-control" id="email">
 						</div>
 					</div>
@@ -275,11 +322,13 @@
 
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="gstPer">Tax GST%</label> 
+							<label for="gstPer">Tax GST%<span style="color:red">&nbsp;*</span></label> 
 							<input type="text"
-								data-ng-model="tax_GST"
+								data-ng-model="comctrl.company.tax_GST"
 								placeholder="Enter GST%"
-								class="form-control" id="gstPer">
+								class="form-control" id="gstPer"
+								onKeyPress="return CheckIsNumericAnddot(event,this.value)"
+								maxlength="5">
 						</div>
 					</div>
 				</div>
@@ -287,20 +336,24 @@
 				<div class="row">
 					<div class="col-lg-3">
 						<div class="form-group">
-							<label for="email">No.of.days for Delivery</label>
+							<label for="email">No.of.days for Delivery<span style="color:red">&nbsp;*</span></label>
 							 <input type="number"
-							 data-ng-model="expct_deliverydate"
+							 data-ng-model="comctrl.company.expct_deliverydate"
 							 placeholder="Enter No.of.days for Delivery"
+							 onKeyPress="return CheckIsNumeric(event)"
+							 maxlength="5"
 							 class="form-control" id="email">
 						</div>
 					</div>
 					<div class="col-lg-3">
-						<label for="timeout">Application Timeout</label>
+						<label for="timeout">Application Timeout<span style="color:red">&nbsp;*</span></label>
 						<div class="input-group">
 							<input type="number"
-								data-ng-model="company_apptimeout"
+								data-ng-model="comctrl.company.company_apptimeout"
 								placeholder="Enter Application Timeout"
-							 class="form-control" id="timeout"> 
+							    class="form-control" id="timeout"
+							 	onKeyPress="return CheckIsNumericAnddot(event,this.value)"
+								maxlength="5"> 
 							<span class="input-group-addon" id="basic-addon1"><label>mins</label></span>
 						</div>
 					</div>
@@ -343,13 +396,17 @@
 			$('.overlay').addClass('hideme');
 			$('.drawer').addClass('hideme');
 		});
+		
+		    $('[data-toggle="popover"]').popover();
+		
 	</script>
-	 
-	
+
+	<script type="text/javascript" src="resources/custom/js/validation.js"></script>
+	<script type="text/javascript" src="resources/custom/js/CompanySetting/company_setting_directive.js"></script>
+	<script type="text/javascript" src="resources/custom/js/CompanySetting/company_setting_service.js"></script>
+	<script type="text/javascript" src="resources/custom/js/Address/address_service.js"></script>
 	<script type="text/javascript" src="resources/custom/js/CompanySetting/company_setting_control.js"></script>
 	
-	<script type="text/javascript" src="resources/custom/js/CompanySetting/company_setting_service.js"></script>
-
-<!--====================================================== SCRIPTS END =========================================-->
+   <!--====================================================== SCRIPTS END =========================================-->
 </body>
 </html>

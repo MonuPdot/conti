@@ -54,7 +54,7 @@ public class SessionListener extends HttpSessionEventPublisher {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
         
-    }
+    } 
  
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
