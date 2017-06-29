@@ -1,5 +1,7 @@
 package com.conti.userlog;
 
+import java.util.List;
+
 /**
  * @Project_Name conti
  * @Package_Name com.conti.userlog
@@ -12,4 +14,5 @@ public interface UserLogDao {
 	
 	public void saveorupdate(UserLogModel userLogModel);
 	public UserLogModel passwordResetConf(int user_id, String link);
+	public List<UserLogModel> getUserlogListbyId(int user_id);
 }

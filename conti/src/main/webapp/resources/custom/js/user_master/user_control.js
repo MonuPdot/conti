@@ -23,6 +23,7 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
 	self.resetPassword = resetPassword;
 	self.getPassword = getPassword; 
 	self.checkPassword = checkPassword; 	
+	self.findUserbyMbl = findUserbyMbl;
     /*fetchAllUsers();*/
 
 
@@ -59,21 +60,34 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
     	UserService.findUserbyName(self.user.username)
     		.then(
 	    			function (response) {
-	    				if(response != "") {
-	    					if(response.obsolete == "SUPER_ADMIN") {
-	    						self.message = "Kindly contact your technical person..!";
-	    						successAnimate('.success');
-    				    		
-	    					} else if (response.obsolete == "ADMIN") {
-	    						self.message = "Password reset link sent to your E-mail : " + response.employeeMaster.emp_email;
-	    						successAnimate('.success');
-	    					} else {
-	    						self.message = "Kindly contact your manager..! Manager contact no is "+ response.active;
-	    						successAnimate('.success');
-	    					}
+	    				console.log(response.status);
+	    				if(response.status == 200) {
+	    					
+	    					if(response.data != "") {
+		    					if(response.data.obsolete == "SUPER_ADMIN") {
+		    						self.message = "Kindly contact your technical person..!";
+		    						successAnimate('.success');
+	    				    		
+		    					} else if (response.data.obsolete == "ADMIN") {
+		    						self.message = "Password reset link sent to your E-mail : " + response.data.employeeMaster.emp_email;
+		    						successAnimate('.success');
+		    					} else {
+		    						self.message = "Kindly contact your manager..! Manager contact no is "+ response.data.active;
+		    						successAnimate('.success');
+		    					}
+		    				} else {
+		    					self.message = "User name does not match..!";
+		    				}
+	    					
+	    					window.setTimeout( function(){
+    							window.location.replace('/Conti/login');
+    				    	}, 5000);
+	    					
 	    				} else {
-	    					self.message = "User name does not match..!";
+	    					self.message = "Link already sent to your registered E-mail id..!";
+    						successAnimate('.failure');
 	    				}
+	    				
 	    				
 	    			},
 	    			function(errResponse) {
@@ -236,4 +250,28 @@ contiApp.controller('UserController', ['$scope', 'UserService', function($scope,
     
     
     //----------------------- Reset Password ADMIN / MANAGER begin -------------------------------------//
+    
+    
+    
+    //----------------------- Find user by mobile begin ------------------------------------------------//
+    
+    	function findUserbyMbl(mobileno) {
+   		
+    		UserService.findUserbyMbl(mobileno)
+    			.then(
+    					function(response) {
+    						self.message = "Sent username to your registered mobile number";
+    						successAnimate('.success');
+    						window.setTimeout( function(){
+    							window.location.replace('/Conti/login');
+    				    	}, 5000);
+    					},
+    					function (errResponse) {
+    						self.message = "Sorry..! Mobile number is not valid..!";
+    						successAnimate('.failure');
+    					}
+    				);
+    	}
+    
+    //----------------------- Find user by mobile end ------------------------------------------------//
 }]);

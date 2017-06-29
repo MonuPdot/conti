@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.conti.userlog.UserLogModel;
+
 /**
  * @Project_Name conti
  * @Package_Name com.conti.setting.usercontrol
@@ -76,30 +78,7 @@ class UsersDaoImpl implements UsersDao {
 		
 		
 		
-		
-		 //================================List By ID==============================
-		@Override 
-		@Transactional
-		public  int maxid(){
-			
-			String hql = "select max(user_id) from User" ;
-			Query query = sessionFactory.getCurrentSession().createQuery(hql);
-			return ((Number) query.uniqueResult()).intValue();
-//			 query.setParameters("param1", value1);
-//			    result = (Type) query.uniqueResult();
-		}
-		
-		@Override
-		@Transactional
-		public void resetPassword(String username, String password)
-		{
-			User user = new User();			
-			user.setUsername(username);
-			
-			String hql = "update User set userpassword='" + password + "'where username='" + username + "'";
-			sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
-		}
-		
+		/*------------------------------- Find user by username begin ----------------------- */				
 		@Override
 		@Transactional
 		@SuppressWarnings("unchecked")
@@ -117,6 +96,32 @@ class UsersDaoImpl implements UsersDao {
 			}
 
 		}
+		/*------------------------------- Find user by username end ----------------------- */						
+		
+		 //================================List By ID==============================
+		/*@Override 
+		@Transactional
+		public  int maxid(){
+			
+			String hql = "select max(user_id) from User" ;
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			return ((Number) query.uniqueResult()).intValue();
+//			 query.setParameters("param1", value1);
+//			    result = (Type) query.uniqueResult();
+		}*/
+		
+		/*@Override
+		@Transactional
+		public void resetPassword(String username, String password)
+		{
+			User user = new User();			
+			user.setUsername(username);
+			
+			String hql = "update User set userpassword='" + password + "'where username='" + username + "'";
+			sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
+		}
+		
+		
 		@Override
 		@Transactional
 		public List<User> listbyclientid(int company_id){
@@ -146,9 +151,9 @@ class UsersDaoImpl implements UsersDao {
 			}
 			return null;
 		}
-
+*/
 		//================ Archive Function Begins ==================//
-				@Override
+				/*@Override
 				@Transactional
 				public void deletearchive(int id) {
 					User userToDelete = new User();
@@ -157,13 +162,13 @@ class UsersDaoImpl implements UsersDao {
 					String hql="update User set active='N' where id=" + id;
 					sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
 						
-				}
+				}*/
 				
 				//=========== Archive Function Ended ======================//
 		//======== User Name Unique Process Begins ==================//
 
 				
-				@Override
+				/*@Override
 				@Transactional
 				public boolean getlisybyusername(String username,int clientid) {
 					String hql = "from User where username = '" + username+"' AND client_id = " + clientid + " AND obsolete = 'N' and active = 'Y'";
@@ -191,6 +196,6 @@ class UsersDaoImpl implements UsersDao {
 						return false;
 					}
 					
-				}
+				}*/
 }
 	

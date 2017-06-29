@@ -15,7 +15,8 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
         fetchAllUsers: fetchAllUser,
         findUser: findUser,
         findUserbyName : findUser,
-        changePassword : changePassword
+        changePassword : changePassword,
+        findUserbyMbl :findUserbyMbl
     };
  
     return factory;
@@ -101,8 +102,8 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     		headers : headers
     	})
     	.then(
-    			function (response) {    				
-    				deferred.resolve(response.data);
+    			function (response) {    
+    				deferred.resolve(response);
     			},
     			function (errResponse) {
     				deferred.reject(errResponse);
@@ -133,7 +134,6 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     function changePassword(user) {
     	console.log("Inside reset password service");
     	var deferred = $q.defer();
-    	console.log(getCsrfHeader());
     	$http({
     		method : 'POST',
     		url : '/Conti/changePassword',
@@ -154,4 +154,27 @@ contiApp.factory('UserService', ['$http', '$q', function($http, $q){
     
     
     //----------------------- Reset Password for ADMIN / MANAGER begin -------------------------------------//
+    
+    //----------------------- Find user by mobileno bengin ----------------------------------------------//
+    
+    function findUserbyMbl(mobileno) {
+    	var deferred = $q.defer();
+    	$http({
+    		method : 'POST',
+    		url : 'forgotUsername',
+    		data : mobileno,
+    		headers : getCsrfHeader()
+    	})
+    		.then(
+    				function(response) {
+    					deferred.resolve(response);
+    				},
+    				function(errResponse) {
+    					deferred.reject(errResponse);
+    				}
+    			);
+    	return deferred.promise;
+    }
+    
+    //----------------------- Find user by mobileno end ----------------------------------------------//    
 }]);

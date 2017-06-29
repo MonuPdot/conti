@@ -2,6 +2,7 @@ package com.conti.master.employee;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -60,4 +61,24 @@ public class EmployeeDaoImp implements EmployeeDao {
 	public void saveOrUpdate(EmployeeMaster employee) {
 		sessionFactory.getCurrentSession().saveOrUpdate(employee);
 	}
+	
+	
+	/*------------------------------- Find user by mobileno begin ----------------------- */
+	@Override
+	@Transactional
+	@SuppressWarnings("unchecked")
+	public EmployeeMaster findByMobileno(int mobileno)
+	{
+		String hql = "FROM EmployeeMaster WHERE emp_phoneno ="+ mobileno + "";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		
+		List<EmployeeMaster> emplist = (List<EmployeeMaster>) query.list();
+		if(emplist != null && !emplist.isEmpty()) {
+			return emplist.get(0);
+		}
+		return null;
+	}
+
+	
+	/*------------------------------- Find user by mobileno end ----------------------- */	
 }

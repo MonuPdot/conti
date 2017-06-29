@@ -52,4 +52,14 @@ public class UserLogDaoImpl implements UserLogDao {
 		return null;
 			
 	}
+	
+	@Override
+	@Transactional
+	public List<UserLogModel> getUserlogListbyId(int user_id) {
+		String hql = "FROM UserLogModel WHERE user_id ="+ user_id + "";
+		@SuppressWarnings("unchecked")
+		List<UserLogModel> listUser = (List<UserLogModel>) sessionFactory.getCurrentSession()
+				.createQuery(hql).list();
+		return listUser;
+	}
 }

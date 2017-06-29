@@ -99,3 +99,28 @@
 		  -webkit-font-smoothing: antialiased;
 		  -moz-osx-font-smoothing: grayscale;      
 		}
+		
+		
+		.passward_validate {
+			background-color: #FFFFFF;
+		
+			 padding-top: 15px; 
+   			 padding-bottom: 7px;
+   			 position: relative;
+   			 width : 16%;
+   			 margin-top: -15%;
+   			 
+		}
+		ul {
+			list-style-type: none;
+		}
+		
+		ul li {
+			padding : 5px;
+		}
+		.red {
+			color : red;
+		}
+		.green {
+			color : green;
+		}

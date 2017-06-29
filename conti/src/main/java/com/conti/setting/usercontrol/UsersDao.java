@@ -14,20 +14,22 @@ public interface UsersDao {
 	public List<User> list();
 	public User get(int id);
 	public void delete(int id);
-	
-	public void deletearchive(int id);
-	
-	public  int maxid();
-
-	public void resetPassword(String username, String password);
-	
 	public User findByUserName(String username);
+
+	
+	/*public void deletearchive(int id);*/
+	
+	/*public  int maxid();*/
+
+	/*public void resetPassword(String username, String password);
+	
+	
 	public List<User> listbyclientid(int compay_id);
 	
 	public List<User> getlistOrderbydatedesc(int clientid);
 	
 	public boolean getlisybyusername(String username,int clientid);
-	public  boolean getisuname(String username);
+	public  boolean getisuname(String username);*/
 }
 
 

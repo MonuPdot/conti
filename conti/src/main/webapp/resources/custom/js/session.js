@@ -29,7 +29,7 @@
 	    	// wait for animation to finish before removing classes
 	    	window.setTimeout( function(){
 	    		element.removeClass('animated ' + animation);
-	    	}, 1000);         
+	    	}, 5000);         
 	    }
 	//------------------------- animate dynamic element end ---------------------------------- //
 	    
