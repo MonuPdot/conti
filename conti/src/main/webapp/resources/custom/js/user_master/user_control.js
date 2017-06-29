@@ -1,0 +1,239 @@
+/**
+ * @Project_Name conti
+ * @Package_Name custom js user_control.js
+ * @File_name user_control.js
+ * @author Sankar
+ * @Updated_user Sankar
+ * @Created_date_time Jun 21, 2017 8:24:17 PM
+ * @Updated_date_time Jun 20, 2017 3:24:17 PM
+ */
+contiApp.controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
+    var self = this;
+    self.user={user_id:null,username:''};
+    self.users=[];
+    self.message = null;
+    self.resetBtn = false;
+	self.checkPWD = false;
+	/*    self.submit = submit;
+    self.edit = edit;
+    self.remove = remove;
+    self.reset = reset;*/
+ 
+    self.findUsername = findUsername;
+	self.resetPassword = resetPassword;
+	self.getPassword = getPassword; 
+	self.checkPassword = checkPassword; 	
+    /*fetchAllUsers();*/
+
+
+    //----------------------  Fetch All users begin ----------------------------- //    
+    function fetchAllUsers(){
+        UserService.fetchAllUsers()
+            .then(
+            function(d) {
+                self.users = d;
+                
+                console.log(d);
+            },
+            function(errResponse){
+                console.error('Error while fetching Users');
+            }
+        );
+    }
+    //----------------------  Fetch All users end ----------------------------- //    
+
+    //----------------------  Find user by user id begin ----------------------------- //    
+    function findUser(user, id){
+        UserService.findUser(user, id)
+            .then(
+            fetchAllUsers,
+            function(errResponse){
+                console.error('Error while updating User');
+            }
+        );
+    }
+    //----------------------  Find user by user end ----------------------------- //
+    
+    //----------------------  Find user by user name begin ----------------------------- //    
+    function findUsername() {
+    	UserService.findUserbyName(self.user.username)
+    		.then(
+	    			function (response) {
+	    				if(response != "") {
+	    					if(response.obsolete == "SUPER_ADMIN") {
+	    						self.message = "Kindly contact your technical person..!";
+	    						successAnimate('.success');
+    				    		
+	    					} else if (response.obsolete == "ADMIN") {
+	    						self.message = "Password reset link sent to your E-mail : " + response.employeeMaster.emp_email;
+	    						successAnimate('.success');
+	    					} else {
+	    						self.message = "Kindly contact your manager..! Manager contact no is "+ response.active;
+	    						successAnimate('.success');
+	    					}
+	    				} else {
+	    					self.message = "User name does not match..!";
+	    				}
+	    				
+	    			},
+	    			function(errResponse) {
+	    				console.log(errResponse);
+	    			}
+    			);
+    }
+
+    //----------------------  Find user by user name begin ----------------------------- //
+    
+    //----------------------  Delete user by user id begin ----------------------------- //
+    
+    function deleteUser(id) {
+    	 UserService.deleteUser(id)
+         .then(
+         fetchAllUsers,
+         function(errResponse){
+             console.error('Error while deleting User');
+         }
+     );
+    }
+    
+    //----------------------  Delete user by user id end ----------------------------- //
+    
+  //----------------------  get password begin ----------------------------- //
+    var minchar = false;
+    var caps = false;  
+    var num = false;    
+    var specialchar = false;    
+    function getPassword(password) {
+    	var upperCase= new RegExp('[A-Z]');
+    	var numbers = new RegExp('[0-9]');
+    	var special_char = /^[a-zA-Z0-9- ]*$/;
+    	
+    	if( password == undefined ) {
+    		
+    		$('.minchar').removeClass('green');
+			$('.minchar').addClass('red');
+			
+			$('.caps').removeClass('green');
+			$('.caps').addClass('red');
+			
+			$('.num').removeClass('green');
+			$('.num').addClass('red');
+			
+			$('.specialchar').removeClass('green');
+			$('.specialchar').addClass('red');
+			
+    	}
+    	
+		if( password.length == 1 ) {
+			$('.passward_validate').removeClass('hidden');
+			animationOpenClick('.passward_validate','slideInLeft');
+		}
+		
+		
+		if ( password.length >= 8 ) {
+			$('.minchar').removeClass('red');
+			$('.minchar').addClass('green');
+			minchar = true;
+
+		} else {
+			$('.minchar').removeClass('green');
+			$('.minchar').addClass('red');
+			
+			minchar = false;
+		}
+    	
+		if(password.match(upperCase)) {
+						
+			$('.caps').removeClass('red');
+			$('.caps').addClass('green');
+			
+			caps = true;
+
+		} else {
+			
+			console.log("inside else  match");
+			$('.caps').removeClass('green');
+			$('.caps').addClass('red');
+			
+		    caps = false;
+		}
+		
+		if(password.match(numbers)) {
+			
+			$('.num').removeClass('red');
+			$('.num').addClass('green');
+			
+			num = true;
+			
+		} else {
+			
+			$('.num').removeClass('green');
+			$('.num').addClass('red');
+			
+			num = false;
+		}
+		
+		if( special_char.test(password) == false ) {
+			$('.specialchar').removeClass('red');
+			$('.specialchar').addClass('green');
+			
+			specialchar = true;
+		} else {
+			$('.specialchar').removeClass('green');
+			$('.specialchar').addClass('red');
+			
+			specialchar = false;
+		}
+		
+		if ( minchar == true && caps == true && num == true && specialchar == true) {
+			self.resetBtn = true;
+		} else {
+			self.resetBtn = false;
+		}
+		checkPassword(self.password, self.confpassword);
+    }
+    
+    function checkPassword(password, confirm_password) {
+    	console.log(password + " " + confirm_password);
+    	if( password == confirm_password ) {
+    		self.checkPWD = true;
+    	} else {
+    		self.checkPWD = false;    		
+    	}
+    }
+  //----------------------  get password end ----------------------------- //    
+    
+    //----------------------- Reset Password ADMIN / MANAGER begin -------------------------------------//
+    
+    function resetPassword() {
+    	console.log("Inside reset password");
+    	//self.user.userpassword = self.user.password;
+    	self.user.user_id = $("#id").val();
+    	self.user.obsolete = $("#link").val();
+    	delete self.user.confpassword;
+    	UserService.changePassword(self.user)
+    		.then(
+    				function (response) {
+    					if(response.status == 200) {
+    						self.message = "Password changed successfully..!";
+    						successAnimate('.success');
+    						
+    						window.setTimeout( function(){
+    							window.location.replace('/Conti/login');
+    				    	}, 5000);
+    						
+    					} else {
+    						self.message = "Password is not changed..!";
+    						successAnimate('.success');
+    					}
+    					
+    				},
+    				function (errResponse) {
+    					console.log(errResponse);
+    				}
+    			);
+    }
+    
+    
+    //----------------------- Reset Password ADMIN / MANAGER begin -------------------------------------//
+}]);
