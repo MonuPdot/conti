@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import com.conti.master.employee.EmployeeMaster;
@@ -172,7 +173,7 @@ public class User implements Serializable{
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="userid")
 	public EmployeeMaster getEmployeeMaster() {
 		return employeeMaster;
 	}
