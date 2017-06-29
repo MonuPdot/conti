@@ -38,14 +38,18 @@ public class SendMailSMSImpl implements SendMailSMS {
 	public void send_Mail(String[] email, String subject, String message) {
 		// TODO Auto-generated method stub
 		
-		Properties properties;
+		Properties properties = new Properties();
 		Session session;
 		MimeMessage mimeMessage;
-		final int email_port = 587;
+		//final int email_port = 587;
 		properties = System.getProperties();
-		properties.put("mail.smtp.port", email_port);
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		//---- new
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		//---- new		
+		properties.put("mail.smtp.port", "587");
 		
 		String[] to_mail =  email;
 		String mail_subject = subject;
@@ -70,16 +74,13 @@ public class SendMailSMSImpl implements SendMailSMS {
 				Transport transport = session.getTransport("smtp");
 				transport.connect(emailHost, constantVal.MAIL_ID, constantVal.MAIL_PASSWORD);
 				transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
-				
-				
+				System.out.println("Mail sent..!");
 				
 			} catch (AddressException exception) {
 				// TODO Auto-generated catch block
 				
-				
 			} catch (MessagingException exception) {
 				// TODO Auto-generated catch block
-				
 			}
 		}
 		

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.conti.setting.usercontrol.User;
+
 /**
  * @Project_Name conti
  * @Package_Name com.conti.master.employee
@@ -42,5 +44,20 @@ public class EmployeeDaoImp implements EmployeeDao {
 				
 		return listemp;*/
 	}
+	
+	@Override
+	@Transactional
+	public List<EmployeeMaster> getAllEmployees() {
+		@SuppressWarnings("unchecked")
+		List<EmployeeMaster> listEmployee = (List<EmployeeMaster>) sessionFactory.getCurrentSession()
+				.createQuery("from EmployeeMaster where obsolete ='N' and active ='Y'").list();
+		return listEmployee;
+	}
 
+	
+	@Override
+	@Transactional
+	public void saveOrUpdate(EmployeeMaster employee) {
+		sessionFactory.getCurrentSession().saveOrUpdate(employee);
+	}
 }

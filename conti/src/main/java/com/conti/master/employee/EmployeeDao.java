@@ -2,6 +2,7 @@ package com.conti.master.employee;
 
 import java.util.List;
 
+
 /**
  * @Project_Name conti
  * @Package_Name com.conti.master.employee
@@ -13,4 +14,6 @@ import java.util.List;
 public interface EmployeeDao {
 	
 	public List<EmployeeMaster> getEmployee(int branch_id, String empcategory);
+	public List<EmployeeMaster> getAllEmployees();
+	public void saveOrUpdate(EmployeeMaster employee);
 }

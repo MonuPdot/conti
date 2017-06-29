@@ -21,9 +21,38 @@
 		 return headers;
 	 }; 	
 	 //------------------------- CSRF end ---------------------------------- //
-	 
-	 
-	
+
+	//------------------------- animate dynamic element begin ---------------------------------- //
+	    function animationOpenClick(element, animation){
+	    	element = $(element);				
+	    	element.addClass('animated ' + animation);        
+	    	// wait for animation to finish before removing classes
+	    	window.setTimeout( function(){
+	    		element.removeClass('animated ' + animation);
+	    	}, 1000);         
+	    }
+	//------------------------- animate dynamic element end ---------------------------------- //
+	    
+	//------------------------- Success animate begin ---------------------------------- //    
+	    function successAnimate(element){
+	    	
+	    	window.setTimeout( function(){
+	    		$('body').addClass('scrollHidden');
+	    		$(element).removeClass('hideme');
+	    		
+	    		animationOpenClick(element,'bounceInDown');
+	    	}, 1000);
+			
+			window.setTimeout( function(){
+				animationOpenClick(element,'bounceOutUp');
+				
+	    	}, 3000); 
+			window.setTimeout( function(){
+				$(element).addClass('hideme');	
+				$('body').removeClass('scrollHidden');
+	    	}, 4000);
+	    } 
+	//------------------------- Success animate end ---------------------------------- //	
 	 
 // ------------------------ track Session ------------------------------------------------ // 
  		

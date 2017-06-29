@@ -23,20 +23,48 @@
   	<link href="resources/built-in/assets/Drawer/animate.css" rel="stylesheet" />
   	
   	<link href="resources/built-in/assets/Drawer/trouserDrawer.css" rel="stylesheet" />
-  	
+  	 <!-- FontAwesome Styles-->
+    <link href="resources/built-in/assets/css/font-awesome.css" rel="stylesheet" />
   	<style>
   		.success {
   			background-color: #85ca2b;
 		    padding: 25px;
 		    color: white;
 		    text-align: center;
+		    position:absolute;
+		    width : 100%;
+		   /*  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3); */
+		   
+		      -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+   			 box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+		    font-size: 5mm;
+		    z-index: 2;
   		}
+  		.success:after{
+		    content:"";
+		    position:absolute;
+		    z-index:-1;
+		    top:100%;
+		    bottom:0;
+		    width:120%;
+		    height:50px;
+		    left:-10%;
+		    right:-10%;
+		    background:-webkit-radial-gradient(50% -3%, ellipse cover, rgba(00, 00, 00, 0.5), rgba(97, 97, 97, 0.0) 30%);
+		    background:radial-gradient(ellipse at 50% -3%, rgba(00, 00, 00, 0.5), rgba(97, 97, 97, 0.0) 30%);
+		}
+  		.hideme {
+  			display : none;
+  		}
+  		.scrollHidden {				
+			overflow-x: hidden;			
+		}
   	</style>
 </head>
 
 <body data-ng-app = "contiApp" data-ng-controller = "UserController as ctrl">
 
-	<div class="success">{{ctrl.message}}</div>
+	<div class="success hideme"><i class="fa fa-check-circle" aria-hidden="true"></i> {{ctrl.message}}</div>
 
 	<div class="login-page"  >
 	  <div class="form">
@@ -56,8 +84,8 @@
  	<script type="text/javascript" src="resources/built-in/js/angular.min.js"></script>
 	<script type="text/javascript" src="resources/custom/js/session.js"></script>
  	<script type="text/javascript" src="resources/custom/js/app.js"></script>
- 	<script type="text/javascript" src="resources/custom/js/user_control.js"></script>
- 	<script type="text/javascript" src="resources/custom/js/user_service.js"></script>
+ 	<script type="text/javascript" src="resources/custom/js/user_master/user_control.js"></script>
+ 	<script type="text/javascript" src="resources/custom/js/user_master/user_service.js"></script>
     
 </body>
 

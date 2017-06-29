@@ -15,16 +15,35 @@
 .customer-font
    {
 		font-family:Myriad Pro;
-		font-size:30px;	
+		font-size:28px;	
    }
+ .noPaddingLeft{
+ 	padding-left:0px !important;
+ }
    
+ .noPaddingRight{
+ 	padding-right:0px !important;
+ }
+.subHeading{
+   font-size:20px;	
+   font-weight: bold;
+   margin-bottom:25px !important;
+   }
  .customer-field
  	{
  		font-family:Myriad Pro;
 		font-size:15px;
  	}
 
+ .marginLeftRight{
+		margin-left:25px;
+	    margin-right:25px ;
+	    margin-top:15px;
+ }
  
+ .panelMarginBottom{
+   margin-bottom:15px !important;
+ }
  
  .company-font
  	{

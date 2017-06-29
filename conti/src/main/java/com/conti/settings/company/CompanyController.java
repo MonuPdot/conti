@@ -2,35 +2,25 @@ package com.conti.settings.company;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.session.SessionAuthenticationException;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.conti.config.SessionListener;
 import com.conti.others.ConstantValues;
 import com.conti.others.Loggerconf;
-import com.conti.others.UserInformation;
-import com.conti.setting.usercontrol.RoleDao;
-import com.conti.setting.usercontrol.User;
-import com.conti.setting.usercontrol.UsersDao;
 
 /**
  * @Project_Name conti
@@ -44,51 +34,59 @@ import com.conti.setting.usercontrol.UsersDao;
 @RestController
 public class CompanyController {
 
-	final Logger logger = LoggerFactory.getLogger(CompanyController.class);
-
 	@Autowired
-	private UsersDao usersDao;
-		
-	@Autowired
-	@Qualifier("sessionRegistry")
-	private SessionRegistry sessionRegistry;
-		
-	Loggerconf loggerconf = new Loggerconf();
-	SessionListener sessionListener = new SessionListener();
+	private CompanySettingDAO companyDao;
 
-	@RequestMapping(value =  "company_settings", method = RequestMethod.GET)
-	public ModelAndView adminPage(HttpServletRequest request) throws Exception {
-		
-		HttpSession session = request.getSession();
-		
-		UserInformation userinfo = new UserInformation(request);
-		String username = userinfo.getUserName();
-		
-		String userid = userinfo.getUserId();
-		
-		session.setAttribute("username", username);
-		session.setAttribute("userid", userid);
-		
-		
-		ModelAndView model = new ModelAndView();
-		
-		
-		try
-		{
-			loggerconf.saveLogger(username, request.getServletPath(), ConstantValues.FETCH_SUCCESS, null);
-			
-			model.addObject("title", "Company Settings");
-			model.addObject("message", "This page is for ROLE_ADMIN only!");
-			model.setViewName("Settings/company_settings");
-
-			
-		} catch (Exception exception) {
-			loggerconf.saveLogger(username,  "Admin / ", ConstantValues.LOGGER_STATUS_E, exception);
-		}
-		return model;
-
-	}
 
 	
+	Loggerconf loggerconf = new Loggerconf();
+	SessionListener sessionListener = new SessionListener();
+	final Logger logger = LoggerFactory.getLogger(CompanyController.class);
+	
+	//=================Company setting page=====================================
+	@RequestMapping(value =  "company_settings", method = RequestMethod.GET)
+	public ModelAndView adminPage(HttpServletRequest request)  {
+		String username =request.getUserPrincipal().getName();				
+		ModelAndView model = new ModelAndView();		
+		try{
+			loggerconf.saveLogger(username, request.getServletPath(), ConstantValues.FETCH_SUCCESS, null);			
+			model.addObject("title", "Company Settings");
+			model.addObject("message", "This page is for ROLE_ADMIN only!");
+			model.setViewName("Settings/company_settings");			
+		} catch (Exception exception) {
+			loggerconf.saveLogger(username,  "Admin / ", ConstantValues.LOGGER_STATUS_E, exception);
+		}		
+		return model;
+	}
 
+	//=================Retrieve company details=====================================
+	@RequestMapping(value="/company/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Company> getCompanyDetail(HttpServletRequest request,@PathVariable("id") long id){
+		
+		Company company=companyDao.getById((int) id);
+		if(company==null){
+			loggerconf.saveLogger(request.getUserPrincipal().getName(), request.getServletPath(), ConstantValues.FETCH_NOT_SUCCESS, null);
+			return new ResponseEntity<Company>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Company>(company,HttpStatus.OK);
+	}
+	
+	//=================Create company details=====================================
+	@RequestMapping(value="/companySave" ,method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> saveCompanyDetail(@RequestBody Company company,HttpServletRequest request,UriComponentsBuilder ucBuilder){
+		
+		System.out.println("++inside company");
+		try {
+			companyDao.saveOrUpdate(company);
+			loggerconf.saveLogger(request.getUserPrincipal().getName(), request.getServletPath(), ConstantValues.SAVE_SUCCESS, null);
+		} catch (Exception e) {
+			loggerconf.saveLogger(request.getUserPrincipal().getName(), request.getServletPath(), ConstantValues.SAVE_NOT_SUCCESS,e);
+			e.printStackTrace();
+		}
+		
+		HttpHeaders headers=new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/company/{id}").buildAndExpand(company.getCompany_id()).toUri());
+		return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
+		
+	}
 }

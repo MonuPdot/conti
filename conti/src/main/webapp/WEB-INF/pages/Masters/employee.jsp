@@ -28,19 +28,24 @@
 	
 	 <link href="resources/built-in/assets/Drawer/trouserDrawer.css" rel="stylesheet" />
 	 <link href="resources/custom/css/custom.css" rel="stylesheet">
+	 
+	 <script type="text/javascript" src="resources/built-in/js/angular.min.js"></script>
+   <script src="resources/custom/js/app.js"></script>
 </head>
 
 
-<body style="overflow-x:hidden;">
- 
+<body style="overflow-x:hidden;" data-ng-app = "contiApp" data-ng-controller = "EmployeeController as ctrl">
+
  		<div class="overlay hideme"></div>
  		
  		<div class="drawer hideme">
+ 		<form data-ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
  			<div class="row">
  			<div class="col-lg-12 trowserHeader">
  				 
                    <div class="col-lg-6 headerLeft">
                    		 <b class="model-title">Employee Master</b>
+                   		 
                    </div>
                    
                    <div class="col-lg-6 headerRight">
@@ -50,23 +55,23 @@
              </div>
  			</div>
                 
-                 
+                 <input type="hidden" data-ng-model="ctrl.employee.emp_id" />
                  
                  <div class="model-body test-size">
 	                <div class="row">
 		                <div class="col-lg-12">
 		                <div class="col-lg-6 contentLeft">
 		                 	   <span>Employee Name </span>	         
-			                   <input type="text" class="form-control">
+			                   <input type="text" class="form-control" data-ng-model="ctrl.employee.emp_name">
 			                   
 			                   <span>Employee Code</span>
-			                   <input type="text" class="form-control">
+			                   <input type="text" class="form-control" data-ng-model="ctrl.employee.emp_code">
 			                   
 			                   <span>Employee Category</span>
-			                   <input type="text" class="form-control">
+			                   <input type="text" class="form-control" data-ng-model="ctrl.employee.empcategory">
 			                   
 			                   <span>Branch Name</span>
-			                   <input type="text" class="form-control">
+			                   <input type="text" class="form-control" data-ng-model="ctrl.employee.branch_id">
 			                   
 			                   <span>Date of Birth</span>
 			                   <input type="text" class="form-control">
@@ -75,7 +80,7 @@
 			                   <input type="text" class="form-control">
 			                   
 			                   <span>Address</span>
-			                   <input type="text" class="form-control">
+			                   <input type="text" class="form-control"  data-ng-model="ctrl.employee.emp_address">
 			           
 			             </div>  
 			             
@@ -99,7 +104,7 @@
 			                   <input type="text" class="form-control">
 			                   
 			                   <span>Mail </span>	         
-			                   <input type="text" class="form-control">
+			                   <input type="text" class="form-control" data-ng-model="ctrl.employee.emp_email">
 			           
 			             </div>   	
 			                	                
@@ -124,7 +129,7 @@
 						<div class="col-lg-4 footerRight">
 
 						    <div class="btn-group dropup" id="savebutton">
-								  <button type="button" class="btnPadding btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">					  
+								  <button type="submit" class="btnPadding btn btn-success dropdown-toggle">					  
 								  Save
 								  </button>
 								      
@@ -140,7 +145,7 @@
             </div>
  			
  			
- 			
+ 			</form>
  		</div>
  
 	
@@ -162,7 +167,7 @@
 	      		<div class="col-lg-4">
 	      		    <button class="btn btn-info drawerOpen" >Add New Employee</button>
 	      		</div>
-      			
+      			{{ctrl.empmsg}}
       		</div>      		
       		</div>
       
@@ -176,26 +181,10 @@
     <!-- jQuery Js -->
     
     
-    <script src="resources/built-in/assets/js/jquery-1.10.2.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="resources/built-in/assets/js/bootstrap.min.js"></script>
-	 
-    <!-- Metis Menu Js -->
-    <script src="resources/built-in/assets/js/jquery.metisMenu.js"></script>
-    <!-- Morris Chart Js -->
-    <script src="resources/built-in/assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="resources/built-in/assets/js/morris/morris.js"></script>
-	
-	
-	<script src="resources/built-in/assets/js/easypiechart.js"></script>
-	<script src="resources/built-in/assets/js/easypiechart-data.js"></script>
-	
-	 <script src="resources/built-in/assets/js/Lightweight-Chart/jquery.chart.js"></script>
-	
-    <!-- Custom Js -->
-    <script src="resources/built-in/assets/js/custom-scripts.js"></script>
    <script src="resources/custom/js/custom.js"></script>
-
+   
+  <script src="resources/custom/js/employee_master/employee_controller.js"></script>
+  <script src="resources/custom/js/employee_master/employee_service.js"></script>
      
 
 </body>
